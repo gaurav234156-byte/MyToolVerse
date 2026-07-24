@@ -1,0 +1,388 @@
+import type { Tool } from "../types";
+
+export const pdfTools: Tool[] = [
+  {
+    slug: "merge-pdf",
+    name: "Merge PDF",
+    shortDescription: "Combine multiple PDFs into one document, in any order.",
+    longDescription:
+      "Merge PDF lets you stack two or more PDF files into a single document. Drag your files into the order you want, and the tool stitches them together while keeping the original quality of every page.",
+    category: "pdf-tools",
+    engine: "pdf-merge",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    trending: true,
+    popular: true,
+    isLive: true,
+    faqs: [
+      { question: "Is there a limit to how many PDFs I can merge?", answer: "You can merge up to 20 files at once. For larger batches, run the tool twice." },
+      { question: "Will merging reduce my PDF quality?", answer: "No. Pages are copied as-is, so text, images, and formatting stay exactly as they were in the source files." },
+      { question: "Can I reorder pages before merging?", answer: "Yes, drag any file up or down in the list before you merge to control the final page order." },
+    ],
+  },
+  {
+    slug: "split-pdf",
+    name: "Split PDF",
+    shortDescription: "Pull specific pages out of a PDF or break it into parts.",
+    longDescription:
+      "Split PDF separates one document into several, either by extracting a page range or splitting at every page. Useful for pulling a chapter out of a report or breaking a scanned bundle into individual files.",
+    category: "pdf-tools",
+    engine: "pdf-split",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    popular: true,
+    isLive: true,
+    faqs: [
+      { question: "Can I split by a custom page range?", answer: "Yes, enter a range like 1-3,7,9-10 and only those pages will be extracted." },
+      { question: "Does splitting affect the original file?", answer: "No, your source PDF is never modified, only read in your browser." },
+    ],
+  },
+  {
+    slug: "compress-pdf",
+    name: "Compress PDF",
+    shortDescription: "Shrink PDF file size while keeping pages readable.",
+    longDescription:
+      "Compress PDF reduces file size by optimizing embedded images and removing redundant data, so large reports and scans become easier to email or upload.",
+    category: "pdf-tools",
+    engine: "pdf-compress",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    trending: true,
+    popular: true,
+    isLive: true,
+    faqs: [
+      { question: "How much smaller will my file get?", answer: "Results vary by content. Image-heavy PDFs often shrink 40-70%, while text-only PDFs shrink less since they're already small." },
+      { question: "Will compression blur my text?", answer: "For most files, text stays fully sharp and selectable — we only strip metadata. If a scanned or image-heavy PDF still exceeds your target size, we re-render pages at a lower resolution to reach it; in that case pages become images and text is no longer selectable, though it stays readable." },
+    ],
+  },
+  {
+    slug: "word-to-pdf",
+    name: "Word to PDF",
+    shortDescription: "Convert DOC and DOCX files into PDF format.",
+    longDescription:
+      "Word to PDF converts Microsoft Word documents into PDF, preserving fonts, images, and layout so the file looks identical on any device.",
+    category: "pdf-tools",
+    engine: "pdf-generic",
+    acceptsUpload: true,
+    acceptedFormats: [".doc", ".docx"],
+    popular: true,
+    isLive: false,
+    faqs: [
+      { question: "Will my formatting stay the same?", answer: "Yes, fonts, spacing, and images are preserved as closely as the PDF format allows." },
+      { question: "Does this work with .doc and .docx?", answer: "Both legacy .doc and modern .docx files are supported." },
+    ],
+  },
+  {
+    slug: "pdf-to-word",
+    name: "PDF to Word",
+    shortDescription: "Turn a PDF into an editable Word document.",
+    longDescription:
+      "PDF to Word extracts text, images, and layout from a PDF into an editable .docx file, so you can revise content without retyping it.",
+    category: "pdf-tools",
+    engine: "pdf-to-word",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    trending: true,
+    isLive: true,
+    faqs: [
+      { question: "Will tables convert correctly?", answer: "Simple tables convert well; complex nested tables may need minor manual adjustment afterward." },
+      { question: "Can I edit the result in Google Docs?", answer: "Yes, the output .docx opens in Word, Google Docs, and most word processors." },
+    ],
+  },
+  {
+    slug: "excel-to-pdf",
+    name: "Excel to PDF",
+    shortDescription: "Convert spreadsheets into clean, shareable PDFs.",
+    longDescription:
+      "Excel to PDF turns XLS and XLSX spreadsheets into PDF documents with preserved column widths and page breaks, ready for printing or sharing.",
+    category: "pdf-tools",
+    engine: "excel-to-pdf",
+    acceptsUpload: true,
+    acceptedFormats: [".xls", ".xlsx"],
+    isLive: true,
+    faqs: [
+      { question: "Will wide spreadsheets fit on the page?", answer: "Wide sheets automatically scale to fit, or you can choose landscape orientation." },
+      { question: "Are formulas converted too?", answer: "Calculated values are shown; the PDF displays results, not live formulas." },
+    ],
+  },
+  {
+    slug: "pdf-to-excel",
+    name: "PDF to Excel",
+    shortDescription: "Extract tables from a PDF into an editable spreadsheet.",
+    longDescription:
+      "PDF to Excel detects tabular data inside a PDF and rebuilds it as rows and columns in an XLSX file you can sort, filter, and calculate with.",
+    category: "pdf-tools",
+    engine: "pdf-generic",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: false,
+    faqs: [
+      { question: "Does this work on scanned PDFs?", answer: "Best results come from text-based PDFs. Scanned tables may need OCR first." },
+    ],
+  },
+  {
+    slug: "pdf-to-powerpoint",
+    name: "PDF to PowerPoint",
+    shortDescription: "Convert PDF pages into editable PowerPoint slides.",
+    longDescription:
+      "PDF to PowerPoint rebuilds each PDF page as a slide, keeping images and text positioned so you can keep presenting and editing in PPTX.",
+    category: "pdf-tools",
+    engine: "pdf-generic",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: false,
+    faqs: [
+      { question: "Will each PDF page become one slide?", answer: "Yes, by default each page maps to one slide in the resulting deck." },
+    ],
+  },
+  {
+    slug: "powerpoint-to-pdf",
+    name: "PowerPoint to PDF",
+    shortDescription: "Convert PPT and PPTX presentations into PDF.",
+    longDescription:
+      "PowerPoint to PDF flattens your slide deck into a PDF, preserving transitions' final state, fonts, and image placement for easy sharing.",
+    category: "pdf-tools",
+    engine: "pdf-generic",
+    acceptsUpload: true,
+    acceptedFormats: [".ppt", ".pptx"],
+    isLive: false,
+    faqs: [
+      { question: "Are speaker notes included?", answer: "By default only slide content is exported; notes can be added as an option before converting." },
+    ],
+  },
+  {
+    slug: "pdf-to-jpg",
+    name: "PDF to JPG",
+    shortDescription: "Export every PDF page as a high-quality JPG image.",
+    longDescription:
+      "PDF to JPG renders each page of your PDF as a separate JPG file, useful for sharing pages individually or dropping them into a slide deck.",
+    category: "pdf-tools",
+    engine: "pdf-to-jpg",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    popular: true,
+    isLive: true,
+    faqs: [
+      { question: "What resolution are the exported images?", answer: "Pages export at a sharp default resolution suitable for screen and most print use." },
+      { question: "Can I download all pages at once?", answer: "Yes, all exported pages are bundled into a single ZIP download." },
+    ],
+  },
+  {
+    slug: "jpg-to-pdf",
+    name: "JPG to PDF",
+    shortDescription: "Combine one or more images into a single PDF file.",
+    longDescription:
+      "JPG to PDF places your images onto PDF pages in the order you choose, perfect for turning photographed documents or receipts into one shareable file.",
+    category: "pdf-tools",
+    engine: "images-to-pdf",
+    acceptsUpload: true,
+    acceptedFormats: [".jpg", ".jpeg", ".png"],
+    popular: true,
+    isLive: true,
+    faqs: [
+      { question: "Can I mix JPG and PNG files?", answer: "Yes, you can combine different image formats into the same PDF." },
+      { question: "Does each image become its own page?", answer: "Yes, every image you add becomes one page, sized to fit." },
+    ],
+  },
+  {
+    slug: "rotate-pdf",
+    name: "Rotate PDF",
+    shortDescription: "Fix sideways or upside-down pages in a PDF.",
+    longDescription:
+      "Rotate PDF lets you turn individual pages or the whole document 90, 180, or 270 degrees, correcting scans that came out the wrong way.",
+    category: "pdf-tools",
+    engine: "pdf-rotate",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: true,
+    faqs: [
+      { question: "Can I rotate just one page instead of all of them?", answer: "Yes, you can apply rotation per page or to the entire document at once." },
+    ],
+  },
+  {
+    slug: "watermark-pdf",
+    name: "Watermark PDF",
+    shortDescription: "Stamp text or a logo across every page of a PDF.",
+    longDescription:
+      "Watermark PDF overlays text (like \"Draft\" or \"Confidential\") or an image across your pages, with control over position, opacity, and rotation.",
+    category: "pdf-tools",
+    engine: "pdf-watermark",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: true,
+    faqs: [
+      { question: "Can I use my own logo as a watermark?", answer: "Yes, upload a PNG with a transparent background for the cleanest result." },
+      { question: "Can I control how see-through the watermark is?", answer: "Yes, an opacity slider lets you make it as subtle or bold as you like." },
+    ],
+  },
+  {
+    slug: "protect-pdf",
+    name: "Protect PDF",
+    shortDescription: "Add a password so only intended readers can open a PDF.",
+    longDescription:
+      "Protect PDF encrypts your document with a password, so the file can't be opened without it. Useful for contracts, IDs, and financial documents.",
+    category: "pdf-tools",
+    engine: "pdf-protect",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: false,
+    faqs: [
+      { question: "What encryption is used?", answer: "Standard PDF encryption is applied, matching what Adobe Acrobat and major PDF readers support." },
+      { question: "What happens if I forget the password?", answer: "There is no recovery option, so store the password somewhere safe before closing the tab." },
+    ],
+  },
+  {
+    slug: "unlock-pdf",
+    name: "Unlock PDF",
+    shortDescription: "Remove a known password from a protected PDF.",
+    longDescription:
+      "Unlock PDF removes password protection from a file you already have the password for, so you can edit or share it without re-entering it each time.",
+    category: "pdf-tools",
+    engine: "pdf-unlock",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: false,
+    faqs: [
+      { question: "Do I need to know the current password?", answer: "Yes, you must enter the existing password; this tool doesn't crack unknown passwords." },
+    ],
+  },
+  {
+    slug: "edit-pdf",
+    name: "Edit PDF",
+    shortDescription: "Add text, shapes, or images directly onto a PDF.",
+    longDescription:
+      "Edit PDF gives you a lightweight canvas over your document to add text boxes, highlight sections, and place images, without needing the original source file.",
+    category: "pdf-tools",
+    engine: "edit-pdf",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    trending: true,
+    isLive: true,
+    faqs: [
+      { question: "Can I edit existing text in the PDF?", answer: "You can cover existing text and add new text on top; full text replacement depends on how the PDF was created." },
+    ],
+  },
+  {
+    slug: "sign-pdf",
+    name: "Sign PDF",
+    shortDescription: "Add a typed, drawn, or uploaded signature to a PDF.",
+    longDescription:
+      "Sign PDF lets you draw your signature, type it in a script font, or upload an image of it, then place it anywhere on the document.",
+    category: "pdf-tools",
+    engine: "pdf-sign",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    popular: true,
+    isLive: true,
+    faqs: [
+      { question: "Is this signature legally binding?", answer: "It creates a visual signature; check your local regulations for legally binding e-signature requirements." },
+    ],
+  },
+  {
+    slug: "pdf-page-numbers",
+    name: "Add Page Numbers",
+    shortDescription: "Insert page numbers into a PDF in any position.",
+    longDescription:
+      "Add Page Numbers stamps sequential numbers onto every page of your PDF, with options for position, starting number, and format.",
+    category: "pdf-tools",
+    engine: "pdf-page-numbers",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: true,
+    faqs: [
+      { question: "Can numbering start from something other than 1?", answer: "Yes, set any starting number, useful for documents that continue from another file." },
+    ],
+  },
+  {
+    slug: "organize-pdf",
+    name: "Organize PDF",
+    shortDescription: "Reorder, delete, or duplicate pages in a PDF.",
+    longDescription:
+      "Organize PDF shows a visual grid of every page so you can drag to reorder, delete unwanted pages, or duplicate a page in seconds.",
+    category: "pdf-tools",
+    engine: "organize-pdf",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: true,
+    faqs: [
+      { question: "Can I delete multiple pages at once?", answer: "Yes, select several pages and remove them in a single action." },
+    ],
+  },
+  {
+    slug: "ocr-pdf",
+    name: "OCR PDF",
+    shortDescription: "Make scanned PDFs searchable and selectable.",
+    longDescription:
+      "OCR PDF scans the images inside your document and recognizes the text within them, turning a flat scan into a PDF you can search, select, and copy from.",
+    category: "pdf-tools",
+    engine: "pdf-generic",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    trending: true,
+    isLive: false,
+    faqs: [
+      { question: "What languages does OCR support?", answer: "Major languages including English, Spanish, French, German, and more are supported." },
+      { question: "Does OCR work on photos of documents?", answer: "Yes, as long as text is reasonably clear and not too distorted." },
+    ],
+  },
+  {
+    slug: "compare-pdf",
+    name: "Compare PDF",
+    shortDescription: "Spot the differences between two versions of a PDF.",
+    longDescription:
+      "Compare PDF lines up two documents side by side and highlights added, removed, and changed content, helpful for reviewing contract revisions.",
+    category: "pdf-tools",
+    engine: "pdf-generic",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: false,
+    faqs: [
+      { question: "Can it compare scanned documents?", answer: "Text-based comparison works best; scanned pages are compared visually instead." },
+    ],
+  },
+  {
+    slug: "pdf-to-pdfa",
+    name: "PDF to PDF/A",
+    shortDescription: "Convert a PDF into the long-term archival PDF/A format.",
+    longDescription:
+      "PDF to PDF/A converts your document into the ISO archival standard, embedding fonts and metadata so the file remains readable decades from now.",
+    category: "pdf-tools",
+    engine: "pdf-generic",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: false,
+    faqs: [
+      { question: "Why would I need PDF/A instead of regular PDF?", answer: "PDF/A is often required for legal, government, or long-term records archiving." },
+    ],
+  },
+  {
+    slug: "crop-pdf",
+    name: "Crop PDF",
+    shortDescription: "Trim margins or unwanted areas from PDF pages.",
+    longDescription:
+      "Crop PDF lets you drag a frame over each page to remove excess margins or unwanted content, applying the same crop across all pages if you like.",
+    category: "pdf-tools",
+    engine: "pdf-crop",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: true,
+    faqs: [
+      { question: "Can I apply the same crop to every page?", answer: "Yes, set the margin values once and they apply across the whole document." },
+    ],
+  },
+  {
+    slug: "repair-pdf",
+    name: "Repair PDF",
+    shortDescription: "Attempt to fix a corrupted or broken PDF file.",
+    longDescription:
+      "Repair PDF rebuilds the internal structure of a damaged file so it can open normally again, recovering as much content as possible.",
+    category: "pdf-tools",
+    engine: "repair-pdf",
+    acceptsUpload: true,
+    acceptedFormats: [".pdf"],
+    isLive: true,
+    faqs: [
+      { question: "Can every corrupted PDF be repaired?", answer: "Most structural issues are fixable; severely damaged files may have partial recovery." },
+    ],
+  },
+];

@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 9%;
+
+    --surface: 220 43% 98%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 9%;
+
+    --primary: 229 100% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 226 100% 95%;
+
+    --secondary: 220 43% 97%;
+    --secondary-foreground: 222 47% 9%;
+
+    --muted: 220 30% 95%;
+    --muted-foreground: 222 20% 46%;
+
+    --accent: 220 43% 96%;
+    --accent-foreground: 229 100% 40%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 220 26% 90%;
+    --input: 220 26% 88%;
+    --ring: 229 100% 58%;
+
+    --radius: 0.875rem;
+  }
+
+  .dark {
+    --background: 224 39% 7%;
+    --foreground: 210 40% 96%;
+
+    --surface: 224 33% 10%;
+
+    --card: 224 33% 10%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 224 33% 10%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 229 100% 64%;
+    --primary-foreground: 224 39% 7%;
+    --primary-soft: 229 60% 18%;
+
+    --secondary: 224 28% 14%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 224 28% 14%;
+    --muted-foreground: 220 20% 65%;
+
+    --accent: 224 28% 15%;
+    --accent-foreground: 229 100% 74%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 60% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 224 24% 18%;
+    --input: 224 24% 20%;
+    --ring: 229 100% 64%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .skeleton {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--border)) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  .slot-id {
+    font-family: var(--font-jbmono);
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
