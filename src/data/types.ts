@@ -23,6 +23,8 @@ export type ToolEngine =
 | "pdf-to-word"
 | "word-to-pdf"
 | "pdf-to-excel"
+| "pdf-protect"
+  | "pdf-unlock"
   | "pdf-generic"
   | "organize-pdf"
   | "excel-to-pdf"

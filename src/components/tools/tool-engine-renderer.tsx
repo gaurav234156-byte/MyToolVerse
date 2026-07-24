@@ -12,6 +12,8 @@ import { PdfToJpgEngine } from "./engines/pdf-to-jpg-engine";
 import { PdfToWordEngine } from "./engines/pdf-to-word-engine";
 import { WordToPdfEngine } from "./engines/word-to-pdf-engine";
 import { PdfToExcelEngine } from "./engines/pdf-to-excel-engine";
+import { ProtectPdfEngine } from "./engines/protect-pdf-engine";
+import { UnlockPdfEngine } from "./engines/unlock-pdf-engine";
 import { OrganizePdfEngine } from "./engines/organize-pdf-engine";
 import { ExcelToPdfEngine } from "./engines/excel-to-pdf-engine";
 import { RepairPdfEngine } from "./engines/repair-pdf-engine";
@@ -57,6 +59,8 @@ export function ToolEngineRenderer({ tool }: { tool: Tool }) {
 case "pdf-to-word":    return <PdfToWordEngine />;
 case "word-to-pdf":    return <WordToPdfEngine />;
 case "pdf-to-excel":    return <PdfToExcelEngine />;
+case "pdf-protect":    return <ProtectPdfEngine />;
+    case "pdf-unlock":    return <UnlockPdfEngine />;
     case "organize-pdf":    return <OrganizePdfEngine />;
     case "excel-to-pdf":    return <ExcelToPdfEngine />;
     case "repair-pdf":      return <RepairPdfEngine />;

@@ -225,7 +225,7 @@ export const pdfTools: Tool[] = [
     engine: "pdf-protect",
     acceptsUpload: true,
     acceptedFormats: [".pdf"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "What encryption is used?", answer: "Standard PDF encryption is applied, matching what Adobe Acrobat and major PDF readers support." },
       { question: "What happens if I forget the password?", answer: "There is no recovery option, so store the password somewhere safe before closing the tab." },
@@ -241,7 +241,7 @@ export const pdfTools: Tool[] = [
     engine: "pdf-unlock",
     acceptsUpload: true,
     acceptedFormats: [".pdf"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Do I need to know the current password?", answer: "Yes, you must enter the existing password; this tool doesn't crack unknown passwords." },
     ],
