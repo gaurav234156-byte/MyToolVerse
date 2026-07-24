@@ -100,8 +100,10 @@ export function WordToPdfEngine() {
         if (y < MARGIN) newPage();
       }
 
-      const bytes = await pdfDoc.save();
-      const blob = new Blob([bytes], { type: "application/pdf" });
+const bytes = await pdfDoc.save();
+      const blob = new Blob([bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)], {
+        type: "application/pdf",
+      });
       setPdfUrl(URL.createObjectURL(blob));
       setPageCount(pages);
 
