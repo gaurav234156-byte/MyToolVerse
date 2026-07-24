@@ -10,6 +10,7 @@ import { PdfPageNumbersEngine } from "./engines/pdf-page-numbers-engine";
 import { PdfSignEngine } from "./engines/pdf-sign-engine";
 import { PdfToJpgEngine } from "./engines/pdf-to-jpg-engine";
 import { PdfToWordEngine } from "./engines/pdf-to-word-engine";
+import { WordToPdfEngine } from "./engines/word-to-pdf-engine";
 import { OrganizePdfEngine } from "./engines/organize-pdf-engine";
 import { ExcelToPdfEngine } from "./engines/excel-to-pdf-engine";
 import { RepairPdfEngine } from "./engines/repair-pdf-engine";
@@ -53,6 +54,7 @@ export function ToolEngineRenderer({ tool }: { tool: Tool }) {
     case "pdf-sign":        return <PdfSignEngine />;
     case "pdf-to-jpg":      return <PdfToJpgEngine />;
 case "pdf-to-word":    return <PdfToWordEngine />;
+case "word-to-pdf":    return <WordToPdfEngine />;
     case "organize-pdf":    return <OrganizePdfEngine />;
     case "excel-to-pdf":    return <ExcelToPdfEngine />;
     case "repair-pdf":      return <RepairPdfEngine />;

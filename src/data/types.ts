@@ -21,6 +21,7 @@ export type ToolEngine =
   | "pdf-page-numbers"
   | "pdf-sign"
 | "pdf-to-word"
+| "word-to-pdf"
   | "pdf-generic"
   | "organize-pdf"
   | "excel-to-pdf"

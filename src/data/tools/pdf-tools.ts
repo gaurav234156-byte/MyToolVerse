@@ -62,11 +62,11 @@ export const pdfTools: Tool[] = [
     longDescription:
       "Word to PDF converts Microsoft Word documents into PDF, preserving fonts, images, and layout so the file looks identical on any device.",
     category: "pdf-tools",
-    engine: "pdf-generic",
+    engine: "word-to-pdf",
     acceptsUpload: true,
     acceptedFormats: [".doc", ".docx"],
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Will my formatting stay the same?", answer: "Yes, fonts, spacing, and images are preserved as closely as the PDF format allows." },
       { question: "Does this work with .doc and .docx?", answer: "Both legacy .doc and modern .docx files are supported." },
