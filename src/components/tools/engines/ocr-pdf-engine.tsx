@@ -57,7 +57,7 @@ export function OcrPdfEngine() {
         const ctx = canvas.getContext("2d");
         if (!ctx) throw new Error("Canvas not supported in this browser.");
 
-        await page.render({ canvas, canvasContext: ctx, viewport: renderViewport })
+        await page.render({ canvasContext: ctx, viewport: renderViewport })
           .promise;
 
         setProgressLabel(`Recognizing text on page ${i} of ${pdf.numPages}...`);
