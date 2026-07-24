@@ -22,6 +22,7 @@ export type ToolEngine =
   | "pdf-sign"
 | "pdf-to-word"
 | "word-to-pdf"
+| "pdf-to-excel"
   | "pdf-generic"
   | "organize-pdf"
   | "excel-to-pdf"

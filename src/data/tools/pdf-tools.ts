@@ -112,10 +112,10 @@ export const pdfTools: Tool[] = [
     longDescription:
       "PDF to Excel detects tabular data inside a PDF and rebuilds it as rows and columns in an XLSX file you can sort, filter, and calculate with.",
     category: "pdf-tools",
-    engine: "pdf-generic",
+    engine: "pdf-to-excel",
     acceptsUpload: true,
     acceptedFormats: [".pdf"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does this work on scanned PDFs?", answer: "Best results come from text-based PDFs. Scanned tables may need OCR first." },
     ],
