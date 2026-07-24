@@ -101,7 +101,7 @@ export function WordToPdfEngine() {
       }
 
 const bytes = await pdfDoc.save();
-      const blob = new Blob([bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)], {
+      const blob = new Blob([bytes as unknown as BlobPart], {
         type: "application/pdf",
       });
       setPdfUrl(URL.createObjectURL(blob));
