@@ -44,9 +44,19 @@ export function WordToPdfEngine() {
       const arrayBuffer = await file.arrayBuffer();
       const { value: rawText } = await mammoth.extractRawText({ arrayBuffer });
 
+     const sanitize = (text: string) =>
+        text
+          .replace(/\t/g, "    ")
+          .replace(/[\u2018\u2019]/g, "'")
+          .replace(/[\u201C\u201D]/g, '"')
+          .replace(/[\u2013\u2014]/g, "-")
+          .replace(/\u2026/g, "...")
+          // eslint-disable-next-line no-control-regex
+          .replace(/[^\x00-\x7F]/g, "");
+
       const paragraphs = rawText
         .split(/\n+/)
-        .map((p) => p.trim())
+        .map((p) => sanitize(p).trim())
         .filter((p) => p.length > 0);
 
       const pdfDoc = await PDFDocument.create();
@@ -109,7 +119,8 @@ const bytes = await pdfDoc.save();
 
       const baseName = file.name.replace(/\.docx$/i, "");
       setFileName(`${baseName}.pdf`);
-    } catch {
+    } catch (err) {
+      console.error("Word to PDF error:", err);
       setError(
         "Couldn't convert this file. Make sure it's a valid, unprotected .docx document."
       );
