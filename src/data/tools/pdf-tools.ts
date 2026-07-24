@@ -127,10 +127,10 @@ export const pdfTools: Tool[] = [
     longDescription:
       "PDF to PowerPoint rebuilds each PDF page as a slide, keeping images and text positioned so you can keep presenting and editing in PPTX.",
     category: "pdf-tools",
-    engine: "pdf-generic",
+    engine: "pdf-to-powerpoint",
     acceptsUpload: true,
     acceptedFormats: [".pdf"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Will each PDF page become one slide?", answer: "Yes, by default each page maps to one slide in the resulting deck." },
     ],
@@ -142,10 +142,10 @@ export const pdfTools: Tool[] = [
     longDescription:
       "PowerPoint to PDF flattens your slide deck into a PDF, preserving transitions' final state, fonts, and image placement for easy sharing.",
     category: "pdf-tools",
-    engine: "pdf-generic",
+    engine: "powerpoint-to-pdf",
     acceptsUpload: true,
     acceptedFormats: [".ppt", ".pptx"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Are speaker notes included?", answer: "By default only slide content is exported; notes can be added as an option before converting." },
     ],

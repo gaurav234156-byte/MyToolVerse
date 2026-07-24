@@ -25,6 +25,8 @@ export type ToolEngine =
 | "pdf-to-excel"
 | "pdf-protect"
   | "pdf-unlock"
+| "powerpoint-to-pdf"
+  | "pdf-to-powerpoint"
   | "pdf-generic"
   | "organize-pdf"
   | "excel-to-pdf"
