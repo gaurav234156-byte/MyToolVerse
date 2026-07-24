@@ -315,11 +315,11 @@ export const pdfTools: Tool[] = [
     longDescription:
       "OCR PDF scans the images inside your document and recognizes the text within them, turning a flat scan into a PDF you can search, select, and copy from.",
     category: "pdf-tools",
-    engine: "pdf-generic",
+    engine: "pdf-ocr",
     acceptsUpload: true,
     acceptedFormats: [".pdf"],
     trending: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "What languages does OCR support?", answer: "Major languages including English, Spanish, French, German, and more are supported." },
       { question: "Does OCR work on photos of documents?", answer: "Yes, as long as text is reasonably clear and not too distorted." },
@@ -332,10 +332,10 @@ export const pdfTools: Tool[] = [
     longDescription:
       "Compare PDF lines up two documents side by side and highlights added, removed, and changed content, helpful for reviewing contract revisions.",
     category: "pdf-tools",
-    engine: "pdf-generic",
+    engine: "pdf-compare",
     acceptsUpload: true,
     acceptedFormats: [".pdf"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can it compare scanned documents?", answer: "Text-based comparison works best; scanned pages are compared visually instead." },
     ],
@@ -347,10 +347,10 @@ export const pdfTools: Tool[] = [
     longDescription:
       "PDF to PDF/A converts your document into the ISO archival standard, embedding fonts and metadata so the file remains readable decades from now.",
     category: "pdf-tools",
-    engine: "pdf-generic",
+    engine: "pdf-to-pdfa",
     acceptsUpload: true,
     acceptedFormats: [".pdf"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Why would I need PDF/A instead of regular PDF?", answer: "PDF/A is often required for legal, government, or long-term records archiving." },
     ],
