@@ -220,7 +220,18 @@ export function CalculatorEngine({ slug }: { slug: string }) {
       return <DiscountCalculator />;
     case "loan-emi-calculator":
       return <LoanEmiCalculator />;
+    case "gpa-calculator-tool":
+      return <GpaCalculator />;
+    case "compound-interest-calculator":
+      return <CompoundInterestCalculator />;
+    case "mortgage-calculator":
+      return <MortgageCalculator />;
+    case "tip-calculator":
+      return <TipCalculator />;
+case "unit-converter":
+      return <UnitConverter />;
     default:
+  
       return <GenericComingSoon />;
   }
 }
