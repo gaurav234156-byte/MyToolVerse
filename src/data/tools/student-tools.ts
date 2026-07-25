@@ -8,7 +8,7 @@ export const studentTools: Tool[] = [
     longDescription:
       "Citation Generator builds correctly formatted citations for books, websites, and journal articles in APA, MLA, and Chicago style, ready to paste into a bibliography.",
     category: "student-tools",
-    engine: "Citation Generator",
+   engine: "citation-generator",
     acceptsUpload: false,
     trending: true,
     popular: true,
