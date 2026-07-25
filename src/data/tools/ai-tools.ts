@@ -41,7 +41,7 @@ export const aiTools: Tool[] = [
     longDescription:
       "AI Grammar Checker scans your writing for grammar, spelling, and punctuation issues and suggests corrections inline.",
     category: "ai-tools",
-    engine: "ai-text-genericr",
+    engine: "ai-text-generic",
     acceptsUpload: false,
     popular: true,
     isLive: true,
