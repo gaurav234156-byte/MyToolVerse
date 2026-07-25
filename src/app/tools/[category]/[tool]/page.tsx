@@ -49,9 +49,27 @@ export default async function ToolPage({
 if (!tool) notFound();
   const cat = categoryMap[tool.category];
   const related = getRelatedTools(tool);
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tool.name,
+    description: tool.shortDescription,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    url: `https://mytoolverse.vercel.app/tools/${tool.category}/${tool.slug}`,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
 
   return (
     <div className="container py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Breadcrumb */}
       <nav className="mb-8 flex items-center gap-1.5 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-foreground">
