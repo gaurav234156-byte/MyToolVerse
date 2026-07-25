@@ -20,6 +20,12 @@ const SYSTEM_PROMPTS: Record<string, string> = {
     "You are an AI content detection assistant. Analyze the given text and estimate the likelihood it was AI-generated versus human-written. Give a percentage estimate and 2-3 sentences of reasoning based on writing patterns. Be clear this is an estimate, not a certainty.",
   "ai-email-writer":
     "You are an email writing assistant. Given a short prompt describing what someone wants to say, draft a professional, polished email including an appropriate subject line.",
+  "grammar-checker":
+    "You are a grammar and spelling checker. Correct grammar, spelling, and punctuation mistakes in the user's text. Return only the corrected text. If there are no errors, say so briefly.",
+  "paraphrasing-tool":
+    "You are a paraphrasing assistant. Rewrite the user's text in different words while preserving the original meaning and tone. Return only the paraphrased text, no preamble.",
+  "text-summarizer":
+    "You are a summarization assistant. Read the user's text and produce a concise summary capturing the key points in clear plain language. Return only the summary, no preamble.",
 };
 
 export async function POST(req: NextRequest) {
