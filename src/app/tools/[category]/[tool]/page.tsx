@@ -29,6 +29,9 @@ const tool = getToolBySlug(toolSlug, category);
   return {
     title: `${tool.name} — Free Online Tool`,
     description: tool.shortDescription,
+    alternates: {
+      canonical: `/tools/${tool.category}/${tool.slug}`,
+    },
     openGraph: {
       title: `${tool.name} | MyToolVerse`,
       description: tool.shortDescription,

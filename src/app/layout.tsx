@@ -26,6 +26,9 @@ const jbmono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mytoolverse.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "MyToolVerse — 100+ Free Online Tools for PDF, Image, AI & More",
     template: "%s | MyToolVerse",
@@ -60,35 +63,3 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425932231401853"
-          crossOrigin="anonymous"
-        ></script>
-      </head>
-      <body
-        className={`${inter.variable} ${sora.variable} ${jbmono.variable} font-sans`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="relative flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
-  );
-}

@@ -19,6 +19,9 @@ export async function generateMetadata({
   return {
     title: `${cat.name} — Free Online ${cat.name}`,
     description: cat.description,
+    alternates: {
+      canonical: `/category/${cat.slug}`,
+    },
   };
 }
 
