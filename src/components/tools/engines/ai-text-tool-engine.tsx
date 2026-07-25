@@ -91,8 +91,13 @@ export function AiTextToolEngine({ slug }: { slug: string }) {
   const [copied, setCopied] = React.useState(false);
 
   async function handleGenerate() {
-    if (!input.trim()) { setError("Enter some text first."); return; }
-    setError(null); setProcessing(true); setOutput(null);
+    if (!input.trim()) {
+      setError("Enter some text first.");
+      return;
+    }
+    setError(null);
+    setProcessing(true);
+    setOutput(null);
 
     try {
       const res = await fetch("/api/ai/generate", {
@@ -128,7 +133,9 @@ export function AiTextToolEngine({ slug }: { slug: string }) {
           rows={8}
           className="w-full resize-y rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
-        <p className="text-xs text-muted-foreground">{input.length.toLocaleString()} / 20,000 characters</p>
+        <p className="text-xs text-muted-foreground">
+          {input.length.toLocaleString()} / 20,000 characters
+        </p>
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}
@@ -149,7 +156,8 @@ export function AiTextToolEngine({ slug }: { slug: string }) {
           </div>
           <div className="whitespace-pre-wrap rounded-xl border border-input bg-surface px-4 py-3 text-sm">
             {output}
-       </div>
+          </div>
+        </div>
       )}
     </div>
   );
