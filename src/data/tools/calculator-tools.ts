@@ -88,7 +88,7 @@ export const calculatorTools: Tool[] = [
     category: "calculator-tools",
     engine: "calculator-generic",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does it support different GPA scales?", answer: "The standard 4.0 scale is supported, with other scales planned." },
     ],
@@ -102,7 +102,7 @@ export const calculatorTools: Tool[] = [
     category: "calculator-tools",
     engine: "calculator-generic",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I include monthly contributions?", answer: "This is on the roadmap for a future update." },
     ],
@@ -116,7 +116,7 @@ export const calculatorTools: Tool[] = [
     category: "calculator-tools",
     engine: "calculator-generic",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does this include property tax and insurance?", answer: "Not yet, this estimates principal and interest only." },
     ],
@@ -130,7 +130,7 @@ export const calculatorTools: Tool[] = [
     category: "calculator-tools",
     engine: "calculator-generic",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I split unevenly between people?", answer: "Even splitting is supported now; custom splits are planned." },
     ],
@@ -145,7 +145,7 @@ export const calculatorTools: Tool[] = [
     engine: "calculator-generic",
     acceptsUpload: false,
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Which unit categories are supported?", answer: "Length, weight, volume, and temperature, with more categories planned." },
     ],
@@ -159,7 +159,7 @@ export const calculatorTools: Tool[] = [
     category: "calculator-tools",
     engine: "calculator-generic",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Are exchange rates live?", answer: "Live rates are coming soon; this interface is ready and waiting on the data feed." },
     ],
