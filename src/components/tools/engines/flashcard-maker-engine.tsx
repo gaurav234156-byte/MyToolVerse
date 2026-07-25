@@ -110,7 +110,7 @@ export function FlashcardMakerEngine() {
             <Button variant="secondary" size="icon" onClick={() => go(1)}>
               <ChevronRight className="h-4 w-4" />
             </Button>
-            <Button variant="destructive" size="icon" onClick={deleteCurrent}>
+            <Button variant="secondary" size="icon" onClick={deleteCurrent} className="text-destructive hover:text-destructive">
               <Trash2 className="h-4 w-4" />
             </Button>
           </div>
