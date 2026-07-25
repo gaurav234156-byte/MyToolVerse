@@ -1,12 +1,6 @@
 """
-The actual crawl. Playwright (not plain requests) because MyToolVerse
-is a Next.js app -- client-rendered content wouldn't show up in raw
-HTML, so we need a real browser to get the DOM BeautifulSoup then
-parses.
-
-Usage:
-    from crawler.crawl import run_crawl
-    crawl_run_id = asyncio.run(run_crawl())
+Playwright-based BFS crawler: fetches pages, follows internal links,
+stores results to SQLite.
 """
 from __future__ import annotations
 
@@ -30,10 +24,6 @@ log = get_logger(__name__)
 
 
 async def _fetch_with_playwright(browser: Browser, url: str) -> Dict[str, Any]:
-    """
-    Loads one URL and returns everything crawl.py needs: status code,
-    redirect chain, timing, and the fully rendered HTML.
-    """
     page = await browser.new_page(user_agent=config.USER_AGENT)
     redirect_chain: List[str] = []
     status_code = None
@@ -56,7 +46,7 @@ async def _fetch_with_playwright(browser: Browser, url: str) -> Dict[str, Any]:
             log.debug("%s never reached networkidle -- using DOM as-is", url)
 
         html = await page.content()
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         log.warning("Failed to load %s: %s", url, exc)
     finally:
         elapsed_ms = int((time.monotonic() - start) * 1000)
@@ -68,6 +58,10 @@ async def _fetch_with_playwright(browser: Browser, url: str) -> Dict[str, Any]:
         "html": html,
         "response_time_ms": elapsed_ms,
     }
+
+
+def _normalize(u: str, base_url: str) -> str:
+    return u.rstrip("/") if u != base_url else u
 
 
 async def run_crawl(base_url: str | None = None, max_pages: int | None = None) -> int:
@@ -88,7 +82,7 @@ async def run_crawl(base_url: str | None = None, max_pages: int | None = None) -
 
     log.info("Starting crawl #%d for %s (max_pages=%d)", crawl_run_id, base_url, max_pages)
 
-    sitemap_urls = get_sitemap_urls(base_url)
+    sitemap_urls = {_normalize(u, base_url) for u in get_sitemap_urls(base_url)}
     log.info("Found %d URLs in sitemap.xml", len(sitemap_urls))
 
     visited: Set[str] = set()
@@ -100,7 +94,7 @@ async def run_crawl(base_url: str | None = None, max_pages: int | None = None) -
         browser = await pw.chromium.launch(headless=True)
         try:
             while queue and len(visited) < max_pages:
-                url = queue.popleft()
+                url = _normalize(queue.popleft(), base_url)
                 if url in visited:
                     continue
                 visited.add(url)
@@ -123,6 +117,7 @@ async def run_crawl(base_url: str | None = None, max_pages: int | None = None) -
 
                     links = extract_links(result["html"], url, base_netloc)
                     for link in links["internal"]:
+                        link = _normalize(link, base_url)
                         if link not in visited:
                             discovered_via_links.add(link)
                             queue.append(link)
