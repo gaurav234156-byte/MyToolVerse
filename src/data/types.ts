@@ -37,6 +37,7 @@ export type ToolEngine =
   | "edit-pdf"
   | "image-compress"
   | "image-resize"
+| "ai-paraphrasing-tool"
   | "image-crop"
   | "image-convert"
   | "image-generic-api"
