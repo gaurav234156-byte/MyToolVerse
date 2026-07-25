@@ -30,6 +30,7 @@
     "docx": "^9.1.1",
     "face-api.js": "^0.22.2",
     "gif.js": "^0.2.0",
+    "heic2any": "^0.0.4",
     "jszip": "^3.10.1",
     "lucide-react": "^0.474.0",
     "mammoth": "^1.12.0",
