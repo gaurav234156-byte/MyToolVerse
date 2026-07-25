@@ -44,7 +44,7 @@ export type ToolEngine =
   | "image-color-picker"
 | "heic-to-jpg"
   | "image-to-text-ocr"
-  | "favicon-generator
+  | "favicon-generator"
 | "gif-maker"
   | "background-remover"
   | "image-upscaler"
