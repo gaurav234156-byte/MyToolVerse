@@ -40,6 +40,7 @@ export type ToolEngine =
   | "image-crop"
   | "image-convert"
   | "image-generic-api"
+| "ai-text-generic"
 | "meme-generator"
   | "image-color-picker"
 | "heic-to-jpg"
