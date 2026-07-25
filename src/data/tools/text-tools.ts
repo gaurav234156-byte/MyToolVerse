@@ -56,7 +56,7 @@ export const textTools: Tool[] = [
     engine: "text-generic",
     acceptsUpload: false,
     trending: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "What languages are supported?", answer: "Major languages are supported, with multiple voice options for each." },
       { question: "Can I download the audio?", answer: "Yes, generated speech can be downloaded as an MP3 file." },
@@ -69,10 +69,10 @@ export const textTools: Tool[] = [
     longDescription:
       "Speech to Text listens to an audio recording or live microphone input and transcribes the words into editable text.",
     category: "text-tools",
-    engine: "text-generic",
+    engine: "ai-text-generic",
     acceptsUpload: true,
     acceptedFormats: [".mp3", ".wav", ".m4a"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does it handle background noise well?", answer: "Clear recordings work best; heavy background noise can reduce accuracy." },
     ],
@@ -84,10 +84,10 @@ export const textTools: Tool[] = [
     longDescription:
       "Plagiarism Checker compares your writing against indexed web content and flags sections that closely match existing sources, with a similarity score.",
     category: "text-tools",
-    engine: "text-generic",
+    engine: "ai-text-generic",
     acceptsUpload: false,
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "How much text can I check at once?", answer: "Up to 5,000 words per scan." },
     ],
@@ -99,11 +99,11 @@ export const textTools: Tool[] = [
     longDescription:
       "Grammar Checker reviews your text for common mistakes and suggests corrections inline, so you can accept fixes one by one or all at once.",
     category: "text-tools",
-    engine: "text-generic",
+    engine: "ai-text-generic",
     acceptsUpload: false,
     trending: true,
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does it explain why something is wrong?", answer: "Yes, each suggestion includes a short explanation of the grammar rule involved." },
     ],
@@ -115,9 +115,9 @@ export const textTools: Tool[] = [
     longDescription:
       "Paraphrasing Tool rewords sentences to sound different while preserving the original meaning, with adjustable tone settings like formal or casual.",
     category: "text-tools",
-    engine: "text-generic",
+    engine: "ai-text-generic",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Will it change the meaning of my text?", answer: "The goal is to preserve meaning; always review the result before using it." },
     ],
@@ -199,10 +199,10 @@ export const textTools: Tool[] = [
     longDescription:
       "Text Summarizer reads through long articles or reports and produces a shorter summary capturing the main points, with adjustable summary length.",
     category: "text-tools",
-    engine: "text-generic",
+    engine: "ai-text-generic",
     acceptsUpload: false,
     trending: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I control how short the summary is?", answer: "Yes, choose a target length from a few sentences to a few paragraphs." },
     ],
