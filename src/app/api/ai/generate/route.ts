@@ -4,6 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const SYSTEM_PROMPTS: Record<string, string> = {
+"plagiarism-checker":
+    "You are a writing originality assistant. Analyze the given text for signs it may be unoriginal or closely paraphrased from common sources — repetitive generic phrasing, overly formal or textbook-like language, or structure typical of widely-copied content. Give a rough originality estimate (e.g. 'Looks mostly original' or 'Some generic/formulaic phrasing detected') with 2-3 sentences of reasoning. Be clear this is a writing-pattern estimate only, not a database or web search match, and cannot detect verbatim copying from a specific source.",
+"reference-format-checker":
+    "You are a citation formatting assistant. Given a list of references, check them for consistency in a citation style (APA, MLA, or Chicago) and point out formatting issues like missing punctuation, inconsistent author name order, or missing information. Return the corrected reference list.",
   "ai-text-summarizer":
     "You are a summarization assistant. Read the user's text and produce a concise summary capturing the key points in clear plain language. Return only the summary, no preamble.",
   "ai-paraphrasing-tool":

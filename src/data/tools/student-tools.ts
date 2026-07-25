@@ -8,11 +8,11 @@ export const studentTools: Tool[] = [
     longDescription:
       "Citation Generator builds correctly formatted citations for books, websites, and journal articles in APA, MLA, and Chicago style, ready to paste into a bibliography.",
     category: "student-tools",
-    engine: "student-generic",
+    engine: "Citation Generator",
     acceptsUpload: false,
     trending: true,
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Which citation styles are supported?", answer: "APA, MLA, and Chicago styles are planned for the initial release." },
       { question: "Can it cite a website automatically from a URL?", answer: "Auto-fill from a URL is a planned feature; manual entry will always be available." },
@@ -25,11 +25,11 @@ export const studentTools: Tool[] = [
     longDescription:
       "Plagiarism Checker compares submitted text against web sources to flag passages that closely match existing published content.",
     category: "student-tools",
-    engine: "student-generic",
+    engine: "ai-text-generic",
     acceptsUpload: true,
     acceptedFormats: [".docx", ".pdf", ".txt"],
     trending: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "How accurate is the matching?", answer: "Results highlight likely matches for review; always verify flagged passages yourself." },
     ],
@@ -41,10 +41,10 @@ export const studentTools: Tool[] = [
     longDescription:
       "Essay Word Counter gives a live word and character count along with estimated reading time, helping you hit assignment length requirements.",
     category: "student-tools",
-    engine: "student-generic",
+    engine: "text-counter",
     acceptsUpload: false,
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does it count words in headers and footnotes?", answer: "Only the main pasted text is counted, not headers or footnotes." },
     ],
@@ -56,9 +56,9 @@ export const studentTools: Tool[] = [
     longDescription:
       "Pomodoro Study Timer runs structured focus and break intervals to help you study in short, productive bursts without burning out.",
     category: "student-tools",
-    engine: "student-generic",
+    engine: "pomodoro-timer",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I customize the interval lengths?", answer: "Adjustable focus and break durations are planned alongside the classic 25/5 default." },
     ],
@@ -70,9 +70,9 @@ export const studentTools: Tool[] = [
     longDescription:
       "Flashcard Maker lets you create term and definition pairs and flip through them as digital flashcards for quick review sessions.",
     category: "student-tools",
-    engine: "student-generic",
+    engine: "flashcard-maker",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I save my flashcard sets?", answer: "Saving sets to an account is planned for a future update." },
     ],
@@ -84,9 +84,9 @@ export const studentTools: Tool[] = [
     longDescription:
       "Reference Format Checker reviews a pasted reference list and flags inconsistencies in punctuation, ordering, and structure against the chosen citation style.",
     category: "student-tools",
-    engine: "student-generic",
+    engine: "ai-text-generic",
     acceptsUpload: false,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Will it fix the formatting automatically?", answer: "It flags issues for you to fix manually; auto-correction is a planned enhancement." },
     ],

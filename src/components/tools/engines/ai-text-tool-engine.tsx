@@ -8,6 +8,18 @@ const CONFIG: Record<
   string,
   { inputLabel: string; placeholder: string; buttonLabel: string; outputLabel: string }
 > = {
+"plagiarism-checker": {
+    inputLabel: "Paste the text you want checked",
+    placeholder: "Paste your essay or writing here...",
+    buttonLabel: "Analyze text",
+    outputLabel: "Originality estimate",
+  },
+"reference-format-checker": {
+    inputLabel: "Paste your reference list",
+    placeholder: "Paste your references, one per line...",
+    buttonLabel: "Check formatting",
+    outputLabel: "Reviewed references",
+  },
   "ai-text-summarizer": {
     inputLabel: "Paste the text you want to summarize",
     placeholder: "Paste an article, report, or document here...",
