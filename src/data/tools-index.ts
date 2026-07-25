@@ -33,7 +33,10 @@ export const toolsByCategory: Record<CategorySlug, Tool[]> = allTools.reduce(
   {} as Record<CategorySlug, Tool[]>
 );
 
-export function getToolBySlug(slug: string): Tool | undefined {
+export function getToolBySlug(slug: string, category?: string): Tool | undefined {
+  if (category) {
+    return allTools.find((t) => t.slug === slug && t.category === category);
+  }
   return allTools.find((t) => t.slug === slug);
 }
 

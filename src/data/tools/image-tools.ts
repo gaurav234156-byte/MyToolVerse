@@ -105,11 +105,11 @@ export const imageTools: Tool[] = [
     longDescription:
       "HEIC to JPG converts Apple's HEIC photo format into JPG, so your photos open correctly on Windows, Android, and older software.",
     category: "image-tools",
-    engine: "image-convert",
+    engine: "heic-to-jpg",
     acceptsUpload: true,
     acceptedFormats: [".heic"],
     trending: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does this work with Live Photos?", answer: "Only the still image is converted; the motion portion of a Live Photo isn't included." },
     ],
@@ -121,12 +121,12 @@ export const imageTools: Tool[] = [
     longDescription:
       "Background Remover uses AI to detect the subject of your photo and erase the background, leaving a clean transparent PNG ready for product shots or profile pictures.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "background-remover",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png"],
     trending: true,
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Does this work on photos with multiple people?", answer: "Yes, the detection keeps all foreground subjects and removes the background behind them." },
       { question: "What format is the result?", answer: "You'll get a PNG with a transparent background so you can place it on anything." },
@@ -139,11 +139,11 @@ export const imageTools: Tool[] = [
     longDescription:
       "Image Upscaler uses AI to enlarge low-resolution images while reconstructing fine detail, useful for old photos or small product images that need to look sharp larger.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "image-upscaler",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png"],
     trending: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "How much larger can I make an image?", answer: "Up to 4x the original resolution, depending on the source image's starting quality." },
     ],
@@ -170,11 +170,11 @@ export const imageTools: Tool[] = [
     longDescription:
       "Image to Text reads the words inside a picture, like a screenshot or photographed page, and turns them into text you can copy and paste.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "image-to-text-ocr",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png"],
     popular: true,
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "What languages are supported?", answer: "Major world languages are supported, with best accuracy on clear, well-lit text." },
     ],
@@ -186,10 +186,10 @@ export const imageTools: Tool[] = [
     longDescription:
       "Meme Generator places classic caption text on your image with adjustable size, stroke, and position, ready to download and share.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "meme-generator",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I use my own font?", answer: "A classic meme font is built in, with a few alternative styles to choose from." },
     ],
@@ -201,10 +201,10 @@ export const imageTools: Tool[] = [
     longDescription:
       "Image Color Picker lets you upload a photo and click any pixel to instantly get its HEX, RGB, and HSL color values for design work.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "image-color-picker",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png", ".webp"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I save multiple colors from one image?", answer: "Yes, every color you click is added to a palette list you can copy from." },
     ],
@@ -231,10 +231,10 @@ export const imageTools: Tool[] = [
     longDescription:
       "Favicon Generator resizes your logo or image into every favicon size browsers and devices expect, packaged into one ready-to-use ZIP.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "favicon-generator",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png", ".svg"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "What sizes are included?", answer: "Standard sizes from 16x16 up to 512x512, plus an .ico file for legacy browser support." },
     ],
@@ -261,10 +261,10 @@ export const imageTools: Tool[] = [
     longDescription:
       "GIF Maker stitches your uploaded images together into a looping animated GIF, with control over frame delay and playback order.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "gif-maker",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Is there a limit on the number of frames?", answer: "Up to 50 images can be combined into a single GIF." },
     ],
@@ -291,10 +291,10 @@ export const imageTools: Tool[] = [
     longDescription:
       "Blur Face finds faces in an uploaded image and applies a blur over them, helpful for protecting privacy before posting a photo publicly.",
     category: "image-tools",
-    engine: "image-generic-api",
+    engine: "blur-face",
     acceptsUpload: true,
     acceptedFormats: [".jpg", ".jpeg", ".png"],
-    isLive: false,
+    isLive: true,
     faqs: [
       { question: "Can I choose which faces to blur?", answer: "All detected faces are blurred by default; you can also manually add or remove blur regions." },
     ],

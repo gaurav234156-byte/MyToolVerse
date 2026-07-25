@@ -23,8 +23,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ category: string; tool: string }>;
 }): Promise<Metadata> {
-  const { tool: toolSlug } = await params;
-  const tool = getToolBySlug(toolSlug);
+const { category, tool: toolSlug } = await params;
+const tool = getToolBySlug(toolSlug, category);
   if (!tool) return {};
   return {
     title: `${tool.name} — Free Online Tool`,
@@ -42,9 +42,8 @@ export default async function ToolPage({
   params: Promise<{ category: string; tool: string }>;
 }) {
   const { category, tool: toolSlug } = await params;
-  const tool = getToolBySlug(toolSlug);
-  if (!tool || tool.category !== category) notFound();
-
+  const tool = getToolBySlug(toolSlug, category);
+if (!tool) notFound();
   const cat = categoryMap[tool.category];
   const related = getRelatedTools(tool);
 
