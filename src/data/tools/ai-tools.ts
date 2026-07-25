@@ -99,7 +99,7 @@ export const aiTools: Tool[] = [
     longDescription:
       "AI Resume Builder takes your job history and skills and suggests polished bullet points and summaries you can use on your resume.",
     category: "ai-tools",
-    engine: "ai-resume-builde",
+    engine: "ai-resume-builder",
     acceptsUpload: false,
     isLive: true,
     faqs: [
