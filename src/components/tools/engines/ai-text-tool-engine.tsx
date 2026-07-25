@@ -149,6 +149,8 @@ export function AiTextToolEngine({ slug }: { slug: string }) {
           </div>
           <div className="whitespace-pre-wrap rounded-xl border border-input bg-surface px-4 py-3 text-sm">
             {output}
-          </div>
-        </div>
+       </div>
       )}
+    </div>
+  );
+}
