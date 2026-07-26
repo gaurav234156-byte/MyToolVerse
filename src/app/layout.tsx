@@ -63,7 +63,12 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-};export default function RootLayout({
+  verification: {
+    google: "RiEBjwi-8o_6yLgXNhZuIeD-FRFVpynd6B5bBOGq3nE",
+  },
+};
+
+export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -90,7 +95,7 @@ export const metadata: Metadata = {
             <Footer />
           </div>
         </ThemeProvider>
-         <GoogleAnalytics gaId="G-H8W6HN5B3Z" />
+        <GoogleAnalytics gaId="G-H8W6HN5B3Z" />
       </body>
     </html>
   );
