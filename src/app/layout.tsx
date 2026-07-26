@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Sora, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import "./globals.css";
@@ -89,6 +90,7 @@ export const metadata: Metadata = {
             <Footer />
           </div>
         </ThemeProvider>
+         <GoogleAnalytics gaId="G-H8W6HN5B3Z" />
       </body>
     </html>
   );
