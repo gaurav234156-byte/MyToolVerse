@@ -8,8 +8,39 @@ export const metadata: Metadata = {
 };
 
 export default function CategoriesPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "All Categories",
+    url: "https://mytoolverse.vercel.app/categories",
+    description:
+      "Browse every tool category on MyToolVerse, from PDF and image tools to AI, developer, and business utilities.",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "MyToolVerse",
+      url: "https://mytoolverse.vercel.app",
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: categories.length,
+      itemListElement: categories.map((cat, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CollectionPage",
+          name: cat.name,
+          url: `https://mytoolverse.vercel.app/category/${cat.slug}`,
+        },
+      })),
+    },
+  };
+
   return (
     <div className="container py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mb-12 text-center">
         <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
           All categories
