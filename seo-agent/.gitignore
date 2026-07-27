@@ -1,3 +1,4 @@
+credentials/
 logs/
 .env
 __pycache__/
