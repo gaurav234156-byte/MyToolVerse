@@ -7,8 +7,26 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About MyToolVerse",
+    url: "https://mytoolverse.vercel.app/about",
+    description:
+      "Learn what MyToolVerse is, who it's built for, and why every tool is free.",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "MyToolVerse",
+      url: "https://mytoolverse.vercel.app",
+    },
+  };
+
   return (
     <div className="container max-w-3xl py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
         About MyToolVerse
       </h1>
