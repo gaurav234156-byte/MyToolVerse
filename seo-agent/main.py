@@ -17,6 +17,7 @@ from db.database import get_connection, init_db
 from logger import get_logger
 from reports.generate import generate_report
 from utils.notify import notify_all
+from analytics import get_analytics_report
 
 log = get_logger(__name__)
 
@@ -57,6 +58,47 @@ def _store_issues(crawl_run_id: int, issues: list[dict]) -> None:
         conn.commit()
 
 
+def _append_analytics_section(markdown_path, analytics: dict) -> None:
+    """Appends a GSC + GA4 summary section onto the existing markdown report."""
+    gsc = analytics.get("search_console", {})
+    ga4 = analytics.get("ga4", {})
+
+    lines = ["\n\n## Analytics (last 7 days)\n"]
+
+    if "error" in gsc:
+        lines.append(f"- **Search Console**: failed to fetch ({gsc['error']})\n")
+    else:
+        t = gsc.get("totals", {})
+        lines.append(
+            f"- **Search Console**: {t.get('clicks', 0)} clicks, "
+            f"{t.get('impressions', 0)} impressions, "
+            f"{t.get('ctr', 0)}% CTR, avg position {t.get('position', 0)}\n"
+        )
+        top_pages = gsc.get("top_pages", [])
+        if top_pages:
+            lines.append("\n**Top pages (Search Console):**\n\n")
+            for p in top_pages[:5]:
+                lines.append(f"- `{p['page']}` — {p['clicks']} clicks, {p['impressions']} impressions\n")
+
+    if "error" in ga4:
+        lines.append(f"\n- **GA4**: failed to fetch ({ga4['error']})\n")
+    else:
+        t = ga4.get("totals", {})
+        lines.append(
+            f"\n- **GA4**: {t.get('sessions', 0)} sessions, "
+            f"{t.get('active_users', 0)} active users, "
+            f"{t.get('engagement_rate', 0)}% engagement rate\n"
+        )
+        top_sources = ga4.get("top_sources", [])
+        if top_sources:
+            lines.append("\n**Top traffic sources:**\n\n")
+            for s in top_sources[:5]:
+                lines.append(f"- {s['channel']} — {s['sessions']} sessions\n")
+
+    with open(markdown_path, "a", encoding="utf-8") as f:
+        f.writelines(lines)
+
+
 def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None:
     init_db()
 
@@ -70,6 +112,14 @@ def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None
     log.info("Detected %d issues across %d pages", len(issues), len(pages))
 
     paths = generate_report(crawl_run_id)
+
+    # Pull GSC + GA4 data and append to the markdown report (non-fatal if it fails)
+    try:
+        analytics = get_analytics_report(days=7)
+        _append_analytics_section(paths["markdown"], analytics)
+        log.info("Analytics section appended to report")
+    except Exception:
+        log.exception("Analytics pull failed; continuing without it")
 
     critical_count = sum(1 for i in issues if i["severity"] == "critical")
     summary = (

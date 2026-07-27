@@ -37,3 +37,9 @@ DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+GOOGLE_SERVICE_ACCOUNT_KEY_PATH = os.getenv(
+    "GOOGLE_SERVICE_ACCOUNT_KEY_PATH",
+    "credentials/mytoolverse-seo-473821-b229d4179334.json",
+)
+GSC_SITE_URL = os.getenv("GSC_SITE_URL", "https://mytoolverse.vercel.app/")
+GA4_PROPERTY_ID = os.getenv("GA4_PROPERTY_ID", "547073909")
