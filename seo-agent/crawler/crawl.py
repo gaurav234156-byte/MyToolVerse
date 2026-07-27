@@ -87,14 +87,20 @@ async def run_crawl(base_url: str | None = None, max_pages: int | None = None) -
 
     visited: Set[str] = set()
     discovered_via_links: Set[str] = set()
-    queue: deque[str] = deque(sitemap_urls | {base_url})
     page_rows: List[Dict[str, Any]] = []
+
+    # PHASE 1: true BFS starting only from the homepage, following only
+    # actual in-page links. This is what gives an honest
+    # "discovered_via_links" signal -- a page only counts as discovered
+    # if it was reached by following real links from pages we've already
+    # crawled, not just because it happens to be in the sitemap.
+    link_queue: deque[str] = deque([base_url])
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=True)
         try:
-            while queue and len(visited) < max_pages:
-                url = _normalize(queue.popleft(), base_url)
+            while link_queue and len(visited) < max_pages:
+                url = _normalize(link_queue.popleft(), base_url)
                 if url in visited:
                     continue
                 visited.add(url)
@@ -120,7 +126,7 @@ async def run_crawl(base_url: str | None = None, max_pages: int | None = None) -
                         link = _normalize(link, base_url)
                         if link not in visited:
                             discovered_via_links.add(link)
-                            queue.append(link)
+                            link_queue.append(link)
                 else:
                     row.update({
                         "title": None, "meta_description": None, "h1_count": 0,
@@ -134,6 +140,55 @@ async def run_crawl(base_url: str | None = None, max_pages: int | None = None) -
 
                 page_rows.append(row)
                 log.info("Crawled (%d/%d): %s [%s]",
+                         len(visited), max_pages, url, row["status_code"])
+
+            # PHASE 2: sweep up any sitemap URLs that link-following never
+            # reached. These are visited too (so we still get their status
+            # code, title, etc. in the report) but correctly marked as
+            # NOT discovered via links -- true orphans.
+            remaining = [u for u in sitemap_urls if u not in visited]
+            for url in remaining:
+                if len(visited) >= max_pages:
+                    log.info("max_pages reached; %d sitemap-only URLs left unvisited",
+                             len(remaining) - len(visited))
+                    break
+                visited.add(url)
+
+                result = await _fetch_with_playwright(browser, url)
+                await asyncio.sleep(config.CRAWL_DELAY_SECONDS)
+
+                row = {
+                    "url": url,
+                    "status_code": result["status_code"],
+                    "redirect_chain": result["redirect_chain"],
+                    "response_time_ms": result["response_time_ms"],
+                    "in_sitemap": True,
+                    "discovered_via_links": url in discovered_via_links,
+                }
+
+                if result["html"]:
+                    analysis = analyze_page(result["html"], url)
+                    row.update(analysis)
+                    # still extract links in case this orphan page links
+                    # onward to other pages we haven't seen yet
+                    links = extract_links(result["html"], url, base_netloc)
+                    for link in links["internal"]:
+                        link = _normalize(link, base_url)
+                        if link not in visited and link not in [r["url"] for r in page_rows]:
+                            discovered_via_links.add(link)
+                else:
+                    row.update({
+                        "title": None, "meta_description": None, "h1_count": 0,
+                        "h1_text": [], "canonical_url": None,
+                        "canonical_issue": None, "og_present": False,
+                        "og_issues": [], "twitter_present": False,
+                        "twitter_issues": [], "images_total": 0,
+                        "images_missing_alt": 0, "schema_types": [],
+                        "schema_issues": [], "content_hash": None,
+                    })
+
+                page_rows.append(row)
+                log.info("Crawled sitemap-only (%d/%d): %s [%s]",
                          len(visited), max_pages, url, row["status_code"])
         finally:
             await browser.close()
