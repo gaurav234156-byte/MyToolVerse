@@ -36,8 +36,45 @@ export default async function CategoryPage({
 
   const tools = getToolsByCategory(cat.slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${cat.name} — Free Online ${cat.name}`,
+    description: cat.description,
+    url: `https://mytoolverse.vercel.app/category/${cat.slug}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "MyToolVerse",
+      url: "https://mytoolverse.vercel.app",
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: tools.length,
+      itemListElement: tools.map((tool, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "SoftwareApplication",
+          name: tool.name,
+          url: `https://mytoolverse.vercel.app/tools/${cat.slug}/${tool.slug}`,
+          applicationCategory: "UtilitiesApplication",
+          operatingSystem: "Any (Web-based)",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+          },
+        },
+      })),
+    },
+  };
+
   return (
     <div className="container py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mb-10 flex flex-col items-center text-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-soft text-primary">
           <cat.icon className="h-7 w-7" />
