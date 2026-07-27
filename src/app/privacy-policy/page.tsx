@@ -29,8 +29,25 @@ const sections = [
 ];
 
 export default function PrivacyPolicyPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Privacy Policy",
+    url: "https://mytoolverse.vercel.app/privacy-policy",
+    description: "How MyToolVerse handles your files and data.",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "MyToolVerse",
+      url: "https://mytoolverse.vercel.app",
+    },
+  };
+
   return (
     <div className="container max-w-2xl py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
         Privacy Policy
       </h1>
