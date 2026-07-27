@@ -52,12 +52,21 @@ export const metadata: Metadata = {
     url: "https://mytoolverse.vercel.app",
     siteName: "MyToolVerse",
     type: "website",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "MyToolVerse — Free Online Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "MyToolVerse — 100+ Free Online Tools",
     description:
       "Compress, convert, generate, and calculate — every tool you need, free and in one place.",
+    images: ["/og-default.png"],
   },
   robots: {
     index: true,
