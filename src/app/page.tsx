@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Zap,
   ShieldCheck,
@@ -119,35 +120,50 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-grid">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-gradient-to-b from-primary-soft/60 via-transparent to-transparent" />
-        <div className="container relative flex flex-col items-center py-20 text-center sm:py-28">
-          <Badge variant="default" className="mb-6">
-            {allTools.length}+ tools across 10 categories
-          </Badge>
-          <h1 className="font-display max-w-3xl text-balance text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl">
-            Every tool you need,{" "}
-            <span className="text-primary">in one place</span>
-          </h1>
-          <p className="mt-5 max-w-xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Compress a PDF, resize an image, format JSON, or calculate your
-            GPA — free, fast, and without installing anything.
-          </p>
+        <div className="container relative grid grid-cols-1 items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-8">
+          {/* Left: text content */}
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+            <Badge variant="default" className="mb-6">
+              {allTools.length}+ tools across 10 categories
+            </Badge>
+            <h1 className="font-display max-w-3xl text-balance text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl">
+              Every tool you need,{" "}
+              <span className="text-primary">in one place</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Compress a PDF, resize an image, format JSON, or calculate your
+              GPA — free, fast, and without installing anything.
+            </p>
 
-          <div className="mt-9 w-full max-w-xl">
-            <ToolSearch variant="hero" />
+            <div className="mt-9 w-full max-w-xl">
+              <ToolSearch variant="hero" />
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground lg:justify-start">
+              <span>Try:</span>
+              {["Compress PDF", "JSON Formatter", "BMI Calculator", "Password Generator"].map(
+                (term) => (
+                  <span
+                    key={term}
+                    className="rounded-full border border-border bg-card px-3 py-1 text-xs"
+                  >
+                    {term}
+                  </span>
+                )
+              )}
+            </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
-            <span>Try:</span>
-            {["Compress PDF", "JSON Formatter", "BMI Calculator", "Password Generator"].map(
-              (term) => (
-                <span
-                  key={term}
-                  className="rounded-full border border-border bg-card px-3 py-1 text-xs"
-                >
-                  {term}
-                </span>
-              )
-            )}
+          {/* Right: hero illustration */}
+          <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+            <Image
+              src="/hero-illustration.png"
+              alt="MyToolVerse — every tool you need, all in one place"
+              width={1200}
+              height={630}
+              priority
+              className="w-full h-auto rounded-2xl"
+            />
           </div>
         </div>
       </section>
