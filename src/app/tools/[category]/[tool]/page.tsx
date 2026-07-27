@@ -26,15 +26,37 @@ export async function generateMetadata({
 const { category, tool: toolSlug } = await params;
 const tool = getToolBySlug(toolSlug, category);
   if (!tool) return {};
+
+  const url = `https://mytoolverse.vercel.app/tools/${tool.category}/${tool.slug}`;
+  const title = `${tool.name} — Free Online Tool`;
+  const ogTitle = `${tool.name} | MyToolVerse`;
+
   return {
-    title: `${tool.name} — Free Online Tool`,
+    title,
     description: tool.shortDescription,
     alternates: {
       canonical: `/tools/${tool.category}/${tool.slug}`,
     },
     openGraph: {
-      title: `${tool.name} | MyToolVerse`,
+      title: ogTitle,
       description: tool.shortDescription,
+      url,
+      type: "website",
+      siteName: "MyToolVerse",
+      images: [
+        {
+          url: "/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: "MyToolVerse — Free Online Tools",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: tool.shortDescription,
+      images: ["/og-default.png"],
     },
   };
 }
