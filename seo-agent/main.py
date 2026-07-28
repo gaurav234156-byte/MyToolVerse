@@ -20,6 +20,7 @@ from utils.notify import notify_all
 from analytics import get_analytics_report
 from keywords import get_keyword_report
 from competitors import get_competitor_report
+from backlinks import get_backlink_report
 
 log = get_logger(__name__)
 
@@ -204,6 +205,32 @@ def _our_tool_slugs_from_pages(pages: list[dict]) -> list[str]:
     return slugs
 
 
+def _append_backlink_section(markdown_path, backlink_report: dict) -> None:
+    """Appends a Backlink Checklist section onto the existing markdown report."""
+    total = backlink_report.get("total", 0)
+    submitted_count = backlink_report.get("submitted_count", 0)
+    pending = backlink_report.get("pending", [])
+
+    lines = [
+        f"\n\n## Backlink Checklist\n\n"
+        f"- **{submitted_count} of {total}** directory submissions completed\n"
+    ]
+
+    if pending:
+        lines.append("\n**Still pending:**\n\n")
+        for p in pending:
+            lines.append(f"- [ ] [{p['name']}]({p['url']})\n")
+        lines.append(
+            "\nRun `python backlinks.py` in seo-agent/ for ready-to-paste "
+            "submission copy for each one.\n"
+        )
+    else:
+        lines.append("\nAll directory submissions complete.\n")
+
+    with open(markdown_path, "a", encoding="utf-8") as f:
+        f.writelines(lines)
+
+
 def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None:
     init_db()
 
@@ -245,6 +272,14 @@ def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None
         log.info("Competitor section appended to report")
     except Exception:
         log.exception("Competitor scan failed; continuing without it")
+
+    # Append backlink/directory submission checklist (non-fatal if it fails)
+    try:
+        backlink_report = get_backlink_report()
+        _append_backlink_section(paths["markdown"], backlink_report)
+        log.info("Backlink checklist appended to report")
+    except Exception:
+        log.exception("Backlink checklist failed; continuing without it")
 
     critical_count = sum(1 for i in issues if i["severity"] == "critical")
     summary = (
