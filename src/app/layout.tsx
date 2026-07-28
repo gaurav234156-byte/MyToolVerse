@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "MyToolVerse — 100+ Free Online Tools for PDF, Image, AI & More",
+    default: "MyToolVerse — 100+ Free Online Tools for PDF, Image & AI",
     template: "%s | MyToolVerse",
   },
   description:
