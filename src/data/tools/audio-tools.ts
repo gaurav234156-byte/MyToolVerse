@@ -78,19 +78,4 @@ export const audioTools: Tool[] = [
       { question: "Does this require installing software?", answer: "No, recording happens directly in your browser with microphone permission." },
     ],
   },
-  {
-    slug: "text-to-speech",
-    name: "Text to Speech",
-    shortDescription: "Convert written text into spoken audio.",
-    longDescription:
-      "Text to Speech reads your written text aloud using a natural-sounding voice and lets you download the result as an audio file.",
-    category: "audio-tools",
-    engine: "audio-generic-api",
-    acceptsUpload: false,
-    trending: true,
-    isLive: false,
-    faqs: [
-      { question: "Will multiple voices be available?", answer: "A selection of voices and languages is planned at launch." },
-    ],
-  },
 ];

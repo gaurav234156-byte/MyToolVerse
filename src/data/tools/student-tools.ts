@@ -19,22 +19,6 @@ export const studentTools: Tool[] = [
     ],
   },
   {
-    slug: "plagiarism-checker",
-    name: "Plagiarism Checker",
-    shortDescription: "Scan text for matches against published sources.",
-    longDescription:
-      "Plagiarism Checker compares submitted text against web sources to flag passages that closely match existing published content.",
-    category: "student-tools",
-    engine: "ai-text-generic",
-    acceptsUpload: true,
-    acceptedFormats: [".docx", ".pdf", ".txt"],
-    trending: true,
-    isLive: true,
-    faqs: [
-      { question: "How accurate is the matching?", answer: "Results highlight likely matches for review; always verify flagged passages yourself." },
-    ],
-  },
-  {
     slug: "essay-word-counter",
     name: "Essay Word Counter",
     shortDescription: "Count words, characters, and reading time for essays.",
