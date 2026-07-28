@@ -18,6 +18,7 @@ from logger import get_logger
 from reports.generate import generate_report
 from utils.notify import notify_all
 from analytics import get_analytics_report
+from keywords import get_keyword_report
 
 log = get_logger(__name__)
 
@@ -99,6 +100,68 @@ def _append_analytics_section(markdown_path, analytics: dict) -> None:
         f.writelines(lines)
 
 
+def _seed_terms_from_pages(pages: list[dict], limit: int = 15) -> list[str]:
+    """
+    Builds keyword-expansion seed terms from the live tool catalog instead
+    of a hardcoded list, so suggestions stay current as tools are added.
+    Uses each tool page's H1 text (falls back to the URL slug) and dedupes.
+    """
+    seeds: list[str] = []
+    seen: set[str] = set()
+
+    for p in pages:
+        url = p.get("url", "")
+        if "/tools/" not in url:
+            continue
+
+        h1 = p.get("h1_text") or []
+        term = h1[0].strip().lower() if h1 else url.rstrip("/").split("/")[-1].replace("-", " ")
+
+        if term and term not in seen:
+            seen.add(term)
+            seeds.append(term)
+
+        if len(seeds) >= limit:
+            break
+
+    return seeds
+
+
+def _append_keyword_section(markdown_path, keyword_report: dict) -> None:
+    """Appends a Keyword Opportunities section onto the existing markdown report."""
+    striking = keyword_report.get("striking_distance", {})
+    suggestions = keyword_report.get("suggestions", {})
+
+    lines = ["\n\n## Keyword Opportunities\n"]
+
+    if "error" in striking:
+        lines.append(f"- **Striking distance**: failed to fetch ({striking['error']})\n")
+    else:
+        opps = striking.get("opportunities", [])
+        pos_range = striking.get("position_range", [11, 30])
+        lines.append(
+            f"\n### Striking Distance (ranking positions {pos_range[0]:.0f}-{pos_range[1]:.0f})\n\n"
+        )
+        if opps:
+            for o in opps[:10]:
+                lines.append(
+                    f"- **{o['query']}** — position {o['position']}, "
+                    f"{o['impressions']} impressions, {o['clicks']} clicks "
+                    f"(`{o['page']}`)\n"
+                )
+        else:
+            lines.append("No striking-distance keywords found yet (needs more GSC history to accumulate).\n")
+
+    if suggestions and "error" not in suggestions:
+        lines.append("\n### Keyword Suggestions (autocomplete expansion)\n\n")
+        for seed, terms in suggestions.get("suggestions", {}).items():
+            if terms:
+                lines.append(f"- **{seed}**: {', '.join(terms[:5])}\n")
+
+    with open(markdown_path, "a", encoding="utf-8") as f:
+        f.writelines(lines)
+
+
 def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None:
     init_db()
 
@@ -120,6 +183,16 @@ def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None
         log.info("Analytics section appended to report")
     except Exception:
         log.exception("Analytics pull failed; continuing without it")
+
+    # Pull keyword research (striking distance + autocomplete expansion)
+    # and append to the markdown report (non-fatal if it fails)
+    try:
+        seed_terms = _seed_terms_from_pages(pages)
+        keyword_report = get_keyword_report(seed_terms=seed_terms)
+        _append_keyword_section(paths["markdown"], keyword_report)
+        log.info("Keyword section appended to report")
+    except Exception:
+        log.exception("Keyword research pull failed; continuing without it")
 
     critical_count = sum(1 for i in issues if i["severity"] == "critical")
     summary = (
