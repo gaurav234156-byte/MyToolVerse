@@ -19,6 +19,7 @@ from reports.generate import generate_report
 from utils.notify import notify_all
 from analytics import get_analytics_report
 from keywords import get_keyword_report
+from competitors import get_competitor_report
 
 log = get_logger(__name__)
 
@@ -162,6 +163,47 @@ def _append_keyword_section(markdown_path, keyword_report: dict) -> None:
         f.writelines(lines)
 
 
+def _append_competitor_section(markdown_path, competitor_report: dict) -> None:
+    """Appends a Competitor Watch section onto the existing markdown report."""
+    lines = ["\n\n## Competitor Watch\n\n"]
+
+    for name, data in competitor_report.items():
+        if "error" in data:
+            lines.append(f"- **{name}**: failed to fetch ({data['error']})\n")
+            continue
+
+        count = data.get("page_count", 0)
+        delta = data.get("delta_since_last_run")
+        delta_str = ""
+        if delta is not None:
+            sign = "+" if delta >= 0 else ""
+            delta_str = f" ({sign}{delta} since last check)"
+        elif delta is None and data.get("previous_page_count") is None:
+            delta_str = " (first check — no baseline yet)"
+
+        lines.append(f"- **{name}**: {count} pages{delta_str}\n")
+
+        gaps = data.get("gap_candidates", [])
+        if gaps:
+            lines.append(f"  - Possible tool ideas not in our catalog: {', '.join(gaps[:8])}\n")
+
+    with open(markdown_path, "a", encoding="utf-8") as f:
+        f.writelines(lines)
+
+
+def _our_tool_slugs_from_pages(pages: list[dict]) -> list[str]:
+    """Extracts our own tool slugs from crawled pages, for gap-analysis comparison."""
+    slugs = []
+    for p in pages:
+        url = p.get("url", "")
+        if "/tools/" not in url:
+            continue
+        slug = url.rstrip("/").split("/")[-1]
+        if slug:
+            slugs.append(slug)
+    return slugs
+
+
 def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None:
     init_db()
 
@@ -193,6 +235,16 @@ def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None
         log.info("Keyword section appended to report")
     except Exception:
         log.exception("Keyword research pull failed; continuing without it")
+
+    # Pull competitor sitemap tracking + gap analysis and append to the
+    # markdown report (non-fatal if it fails)
+    try:
+        our_slugs = _our_tool_slugs_from_pages(pages)
+        competitor_report = get_competitor_report(our_tool_slugs=our_slugs)
+        _append_competitor_section(paths["markdown"], competitor_report)
+        log.info("Competitor section appended to report")
+    except Exception:
+        log.exception("Competitor scan failed; continuing without it")
 
     critical_count = sum(1 for i in issues if i["severity"] == "critical")
     summary = (
