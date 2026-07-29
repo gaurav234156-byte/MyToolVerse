@@ -21,6 +21,7 @@ from analytics import get_analytics_report
 from keywords import get_keyword_report
 from competitors import get_competitor_report
 from backlinks import get_backlink_report
+from content import get_content_report
 
 log = get_logger(__name__)
 
@@ -231,6 +232,26 @@ def _append_backlink_section(markdown_path, backlink_report: dict) -> None:
         f.writelines(lines)
 
 
+def _append_content_section(markdown_path, content_report: dict) -> None:
+    """Appends a Content Drafts section onto the existing markdown report."""
+    drafts = content_report.get("drafts", [])
+    considered = content_report.get("topics_considered", 0)
+
+    lines = ["\n\n## Content Drafts\n\n"]
+
+    if not considered:
+        lines.append("No fresh topics available to draft this run.\n")
+    elif not drafts:
+        lines.append(f"{considered} topic(s) considered, but no drafts were generated (check logs for errors).\n")
+    else:
+        lines.append(f"**{len(drafts)} new draft(s)** generated, ready for review:\n\n")
+        for d in drafts:
+            lines.append(f"- **{d['title']}** — `{d['path']}` (from: \"{d['source_topic']}\")\n")
+
+    with open(markdown_path, "a", encoding="utf-8") as f:
+        f.writelines(lines)
+
+
 def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None:
     init_db()
 
@@ -255,6 +276,7 @@ def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None
 
     # Pull keyword research (striking distance + autocomplete expansion)
     # and append to the markdown report (non-fatal if it fails)
+    keyword_report = {}
     try:
         seed_terms = _seed_terms_from_pages(pages)
         keyword_report = get_keyword_report(seed_terms=seed_terms)
@@ -265,6 +287,7 @@ def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None
 
     # Pull competitor sitemap tracking + gap analysis and append to the
     # markdown report (non-fatal if it fails)
+    competitor_report = {}
     try:
         our_slugs = _our_tool_slugs_from_pages(pages)
         competitor_report = get_competitor_report(our_tool_slugs=our_slugs)
@@ -280,6 +303,17 @@ def run_daily(base_url: str | None = None, max_pages: int | None = None) -> None
         log.info("Backlink checklist appended to report")
     except Exception:
         log.exception("Backlink checklist failed; continuing without it")
+
+    # Generate content drafts from keyword/competitor topic data and
+    # append a summary to the markdown report (non-fatal if it fails)
+    try:
+        content_report = get_content_report(
+            keyword_report=keyword_report, competitor_report=competitor_report
+        )
+        _append_content_section(paths["markdown"], content_report)
+        log.info("Content drafts section appended to report")
+    except Exception:
+        log.exception("Content generation failed; continuing without it")
 
     critical_count = sum(1 for i in issues if i["severity"] == "critical")
     summary = (

@@ -44,3 +44,4 @@ GOOGLE_SERVICE_ACCOUNT_KEY_PATH = os.getenv(
 GSC_SITE_URL = os.getenv("GSC_SITE_URL", "https://mytoolverse.vercel.app/")
 GA4_PROPERTY_ID = os.getenv("GA4_PROPERTY_ID", "547073909")
 BING_SITE_URL = os.getenv("BING_SITE_URL", "https://mytoolverse.vercel.app/")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
