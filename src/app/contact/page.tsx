@@ -76,4 +76,25 @@ export default function ContactPage() {
             <label htmlFor="email" className="text-sm font-medium">
               Email
             </label>
-            <Input id="email"
+            <Input id="email" type="email" required placeholder="you@example.com" />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="message" className="text-sm font-medium">
+              Message
+            </label>
+            <textarea
+              id="message"
+              required
+              rows={5}
+              placeholder="How can we help?"
+              className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </div>
+          <Button type="submit" className="mt-2">
+            Send message
+          </Button>
+        </form>
+      )}
+    </div>
+  );
+}
