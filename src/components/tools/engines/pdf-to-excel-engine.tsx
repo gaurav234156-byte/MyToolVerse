@@ -93,9 +93,16 @@ export function PdfToExcelEngine() {
         const items = textContent.items as unknown as TextItemLike[];
         const rows = groupIntoRows(items);
 
-        const sheetData = rows.length > 0 ? rows : [[""]];
-        const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
-        XLSX.utils.book_append_sheet(workbook, worksheet, `Page ${i}`);
+        if (rows.length > 0) {
+          const worksheet = XLSX.utils.aoa_to_sheet(rows);
+          XLSX.utils.book_append_sheet(workbook, worksheet, `Page ${i}`);
+        }
+      }
+
+      if (workbook.SheetNames.length === 0) {
+        throw new Error(
+          "No extractable text found. This PDF may be a scanned image — try the OCR PDF tool first, then convert the result."
+        );
       }
 
       const out = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
@@ -109,9 +116,11 @@ export function PdfToExcelEngine() {
       setFileName(`${baseName}.xlsx`);
     } catch (err) {
       console.error("PDF to Excel error:", err);
-      setError(
-        "Couldn't convert this PDF. Make sure it's a valid, unprotected, text-based file."
-      );
+      const message =
+        err instanceof Error && err.message.includes("No extractable text found")
+          ? err.message
+          : "Couldn't convert this PDF. Make sure it's a valid, unprotected, text-based file.";
+      setError(message);
     } finally {
       setProcessing(false);
     }
