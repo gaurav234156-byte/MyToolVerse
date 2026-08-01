@@ -45,6 +45,6 @@ jobs:
         run: |
           git config user.name "seo-agent-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add seo-agent/reports seo-agent/cache
+          git add seo-agent/reports
           git diff --cached --quiet || git commit -m "chore(seo): daily crawl report $(date -u +%Y-%m-%d)"
           git push

@@ -5,6 +5,4 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .venv/
-__pycache__/
 cache/
-reports/
