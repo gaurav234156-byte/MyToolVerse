@@ -1,0 +1,95 @@
+{
+  "crawl_run": {
+    "id": 1,
+    "started_at": "2026-08-16T04:23:02.877039+00:00",
+    "finished_at": "2026-08-16T04:23:07.164869+00:00",
+    "base_url": "https://mytoolverse.com",
+    "pages_discovered": 0,
+    "pages_crawled": 1
+  },
+  "issues": [
+    {
+      "id": 1,
+      "crawl_run_id": 1,
+      "url": "https://mytoolverse.com",
+      "category": "unreachable",
+      "severity": "critical",
+      "detail": "Page could not be fetched at all (timeout or DNS/network error)",
+      "impact": 5,
+      "difficulty": 3,
+      "confidence": 4,
+      "first_seen_run_id": null,
+      "resolved": 0
+    },
+    {
+      "id": 2,
+      "crawl_run_id": 1,
+      "url": "https://mytoolverse.com",
+      "category": "missing_title",
+      "severity": "critical",
+      "detail": "No <title> tag",
+      "impact": 5,
+      "difficulty": 1,
+      "confidence": 5,
+      "first_seen_run_id": null,
+      "resolved": 0
+    },
+    {
+      "id": 3,
+      "crawl_run_id": 1,
+      "url": "https://mytoolverse.com",
+      "category": "missing_meta_description",
+      "severity": "warning",
+      "detail": "No meta description -- Google will auto-generate a snippet instead",
+      "impact": 3,
+      "difficulty": 1,
+      "confidence": 5,
+      "first_seen_run_id": null,
+      "resolved": 0
+    },
+    {
+      "id": 4,
+      "crawl_run_id": 1,
+      "url": "https://mytoolverse.com",
+      "category": "missing_h1",
+      "severity": "warning",
+      "detail": "No H1 on page",
+      "impact": 3,
+      "difficulty": 1,
+      "confidence": 5,
+      "first_seen_run_id": null,
+      "resolved": 0
+    },
+    {
+      "id": 5,
+      "crawl_run_id": 1,
+      "url": "https://mytoolverse.com",
+      "category": "missing_schema",
+      "severity": "warning",
+      "detail": "No Schema.org JSON-LD found on page",
+      "impact": 3,
+      "difficulty": 2,
+      "confidence": 5,
+      "first_seen_run_id": null,
+      "resolved": 0
+    },
+    {
+      "id": 6,
+      "crawl_run_id": 1,
+      "url": "https://mytoolverse.com",
+      "category": "missing_from_sitemap",
+      "severity": "info",
+      "detail": "Page is linked internally but missing from sitemap.xml",
+      "impact": 2,
+      "difficulty": 1,
+      "confidence": 4,
+      "first_seen_run_id": null,
+      "resolved": 0
+    }
+  ],
+  "diff_counts": {
+    "new": 6,
+    "resolved": 0,
+    "persisting": 0
+  }
+}
